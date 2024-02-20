@@ -22,6 +22,12 @@ describe('budgetService', () => {
         expect(budgetService.query(new Date(2023, 9, 29), new Date(2023, 11, 4))).toBe(3034)
     })
 
+    it('cross two months with same day', () => {
+        budgetService.getAll = () => [new Budget('202310', 310), new Budget('202311', 3000)]
+
+        expect(budgetService.query(new Date(2023, 9, 1), new Date(2023, 10, 1))).toBe(410)
+    })
+
     it('no budget data', () => {
         budgetService.getAll = () => []
 
